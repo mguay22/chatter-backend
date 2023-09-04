@@ -9,6 +9,7 @@ specifiers:
   '@nestjs/core': ^9.0.0
   '@nestjs/graphql': ^11.0.5
   '@nestjs/mongoose': ^9.2.2
+  '@nestjs/passport': ^10.0.1
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schematics': ^9.0.0
   '@nestjs/testing': ^9.0.0
@@ -17,6 +18,7 @@ specifiers:
   '@types/jest': 29.5.0
   '@types/migrate-mongo': ^10.0.0
   '@types/node': 18.15.11
+  '@types/passport-local': ^1.0.35
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
@@ -33,6 +35,8 @@ specifiers:
   mongodb: ^5.8.0
   mongoose: ^7.2.0
   nestjs-pino: ^3.3.0
+  passport: ^0.6.0
+  passport-local: ^1.0.0
   pino-http: ^8.4.0
   pino-pretty: ^10.2.0
   prettier: ^2.3.2
@@ -54,6 +58,7 @@ dependencies:
   '@nestjs/core': 9.4.0_977486d92607f45b7edf42e1c8aba78d
   '@nestjs/graphql': 11.0.5_bb7c1b6d60882a782a85f8d56db518a4
   '@nestjs/mongoose': 9.2.2_a561837f84fde04e2524ed765ef305ab
+  '@nestjs/passport': 10.0.1_be0d96ba5dfb0fc623c7d6a44f46c93c
   '@nestjs/platform-express': 9.4.0_3414e0f52d188a40eec9b7f5608ed869
   bcrypt: 5.1.1
   class-transformer: 0.5.1
@@ -64,6 +69,8 @@ dependencies:
   mongodb: 5.8.0
   mongoose: 7.2.0
   nestjs-pino: 3.3.0_d4a6db158828dbcd1e27b899b39308c6
+  passport: 0.6.0
+  passport-local: 1.0.0
   pino-http: 8.4.0
   pino-pretty: 10.2.0
   reflect-metadata: 0.1.13
@@ -78,6 +85,7 @@ devDependencies:
   '@types/jest': 29.5.0
   '@types/migrate-mongo': 10.0.0
   '@types/node': 18.15.11
+  '@types/passport-local': 1.0.35
   '@types/supertest': 2.0.12
   '@typescript-eslint/eslint-plugin': 5.59.2_6c7ff310fe21a6fd930d3d46544f8695
   '@typescript-eslint/parser': 5.59.2_eslint@8.39.0+typescript@4.9.5
@@ -1415,6 +1423,16 @@ packages:
       rxjs: 7.8.1
     dev: false
 
+  /@nestjs/passport/10.0.1_be0d96ba5dfb0fc623c7d6a44f46c93c:
+    resolution: {integrity: sha512-hS22LeNj0LByS9toBPkpKyZhyKAXoHACLS1EQrjbAJJEQjhocOskVGwcMwvMlz+ohN+VU804/nMF1Zlya4+TiQ==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0 || ^10.0.0
+      passport: ^0.4.0 || ^0.5.0 || ^0.6.0
+    dependencies:
+      '@nestjs/common': 9.4.0_4ee63e19ab32bfd7441e77a5477b41c6
+      passport: 0.6.0
+    dev: false
+
   /@nestjs/platform-express/9.4.0_3414e0f52d188a40eec9b7f5608ed869:
     resolution: {integrity: sha512-PpnfghpNq7mwG43z3+pacHulsabUCBMla4nUikntXT525ORpZSDvh/nLi1HLfE4w5+FcINc8/RBOyYTeRVmiRQ==}
     peerDependencies:
@@ -1747,6 +1765,27 @@ packages:
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
+    dev: true
+
+  /@types/passport-local/1.0.35:
+    resolution: {integrity: sha512-K4eLTJ8R0yYW8TvCqkjB0pTKoqfUSdl5PfZdidTjV2ETV3604fQxtY6BHKjQWAx50WUS0lqzBvKv3LoI1ZBPeA==}
+    dependencies:
+      '@types/express': 4.17.17
+      '@types/passport': 1.0.12
+      '@types/passport-strategy': 0.2.35
+    dev: true
+
+  /@types/passport-strategy/0.2.35:
+    resolution: {integrity: sha512-o5D19Jy2XPFoX2rKApykY15et3Apgax00RRLf0RUotPDUsYrQa7x4howLYr9El2mlUApHmCMv5CZ1IXqKFQ2+g==}
+    dependencies:
+      '@types/express': 4.17.17
+      '@types/passport': 1.0.12
+    dev: true
+
+  /@types/passport/1.0.12:
+    resolution: {integrity: sha512-QFdJ2TiAEoXfEQSNDISJR1Tm51I78CymqcBa8imbjo6dNNu+l2huDxxbDEIoFIwOSKMkOfHEikyDuZ38WwWsmw==}
+    dependencies:
+      '@types/express': 4.17.17
     dev: true
 
   /@types/prettier/2.7.2:
@@ -4950,6 +4989,27 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
+  /passport-local/1.0.0:
+    resolution: {integrity: sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-strategy: 1.0.0
+    dev: false
+
+  /passport-strategy/1.0.0:
+    resolution: {integrity: sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==}
+    engines: {node: '>= 0.4.0'}
+    dev: false
+
+  /passport/0.6.0:
+    resolution: {integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+      utils-merge: 1.0.1
+    dev: false
+
   /path-exists/4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
@@ -4988,6 +5048,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /pause/0.0.1:
+    resolution: {integrity: sha1-HUCLP9t2kjuVQ9lvtMnf1TXZy10=}
+    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
