@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -28,12 +32,16 @@ export class UsersService {
   }
 
   async update(_id: string, updateUserInput: UpdateUserInput) {
+    if (updateUserInput.password) {
+      updateUserInput.password = await this.hashPassword(
+        updateUserInput.password,
+      );
+    }
     return this.usersRepository.findOneAndUpdate(
       { _id },
       {
         $set: {
           ...updateUserInput,
-          password: await this.hashPassword(updateUserInput.password),
         },
       },
     );
