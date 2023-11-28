@@ -12,6 +12,6 @@ import { MessagesModule } from './messages/messages.module';
     forwardRef(() => MessagesModule),
   ],
   providers: [ChatsResolver, ChatsService, ChatsRepository],
-  exports: [ChatsRepository],
+  exports: [ChatsRepository, ChatsService],
 })
 export class ChatsModule {}

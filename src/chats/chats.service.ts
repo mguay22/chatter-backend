@@ -16,12 +16,28 @@ export class ChatsService {
     });
   }
 
-  async findAll() {
-    return this.chatsRepository.find({});
+  async findAll(userId: string) {
+    return this.chatsRepository.find({
+      ...this.userChatFilter(userId),
+    });
   }
 
   async findOne(_id: string) {
     return this.chatsRepository.findOne({ _id });
+  }
+
+  userChatFilter(userId: string) {
+    return {
+      $or: [
+        { userId },
+        {
+          userIds: {
+            $in: [userId],
+          },
+        },
+        { isPrivate: false },
+      ],
+    };
   }
 
   update(id: number, updateChatInput: UpdateChatInput) {
