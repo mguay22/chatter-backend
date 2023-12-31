@@ -9,6 +9,7 @@ phases:
       - pnpm install
   build:
     commands:
+      - pnpm install --prod
       - pnpm build
 
 artifacts:
