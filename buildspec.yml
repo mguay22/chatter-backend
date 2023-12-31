@@ -1,15 +1,11 @@
 version: 0.2
 
 phases:
-  install:
+  build:
     runtime-versions:
       nodejs: 18
     commands:
-      - npm install -g pnpm
       - pnpm install
-  build:
-    commands:
-      - pnpm install --prod
       - pnpm build
 
 artifacts:
