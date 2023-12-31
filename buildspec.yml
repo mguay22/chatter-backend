@@ -3,18 +3,14 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: latest
+      nodejs: 18
     commands:
       - npm install -g pnpm
-      - pnpm config set store-dir pnpm/store
   pre_build:
-    on-failure: ABORT
-    commands:
-      - WORKDIR=$(pwd)
-      - PNPM_HOME="${WORKDIR}/pnpm"
-  build:
     commands:
       - pnpm install
+  build:
+    commands:
       - pnpm build
 
 artifacts:
