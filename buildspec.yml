@@ -16,5 +16,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-    - 'node_modules/*'
   name: chatter-build-artifacts
