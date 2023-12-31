@@ -6,9 +6,11 @@ phases:
       nodejs: 18
     commands:
       - npm install -g pnpm
-  build:
+  pre_build:
     commands:
       - pnpm install
+  build:
+    commands:
       - pnpm build
 
 artifacts:
