@@ -32,6 +32,7 @@ const ENV = process.env.NODE_ENV;
         path: '/api/graphql',
         subscriptions: {
           'graphql-ws': {
+            path: '/api/graphql',
             onConnect: (context: any) => {
               try {
                 const request: Request = context.extra.request;
