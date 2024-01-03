@@ -7,8 +7,8 @@ import { FileUploadOptions } from './file-upload-options.interface';
 export class S3Service {
   private readonly client = new S3Client({
     credentials: {
-      accessKeyId: this.configService.getOrThrow('AWS_ACCESS_KEY_ID'),
-      secretAccessKey: this.configService.getOrThrow('AWS_SECRET_ACCESS_KEY'),
+      accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
     },
   });
 
