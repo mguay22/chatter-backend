@@ -29,6 +29,7 @@ const ENV = process.env.NODE_ENV;
       driver: ApolloDriver,
       useFactory: (authService: AuthService) => ({
         autoSchemaFile: true,
+        path: '/api/graphql',
         subscriptions: {
           'graphql-ws': {
             onConnect: (context: any) => {
