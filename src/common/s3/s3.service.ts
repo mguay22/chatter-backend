@@ -6,6 +6,7 @@ import { FileUploadOptions } from './file-upload-options.interface';
 @Injectable()
 export class S3Service {
   private readonly client = new S3Client({
+    region: 'us-east-1',
     credentials: {
       accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
       secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
