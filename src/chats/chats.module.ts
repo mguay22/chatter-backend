@@ -7,9 +7,11 @@ import { ChatsRepository } from './chats.repository';
 import { MessagesModule } from './messages/messages.module';
 import { ChatSchema } from './entities/chat.document';
 import { ChatsController } from './chats.controller';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
+    UsersModule,
     DatabaseModule.forFeature([{ name: Chat.name, schema: ChatSchema }]),
     forwardRef(() => MessagesModule),
   ],
