@@ -26,17 +26,17 @@ export class AuthService {
 
     const token = this.jwtService.sign(tokenPayload);
 
-    response.cookie('Authentication', token, {
-      httpOnly: true,
-      expires,
-    });
+    // response.cookie('Authentication', token, {
+    //   httpOnly: true,
+    //   expires,
+    // });
 
     return token;
   }
 
   verifyWs(request: Request, connectionParams: any = {}): TokenPayload {
     const cookies: string[] = request.headers.cookie?.split('; ');
-    const authCookie = cookies.find((cookie) =>
+    const authCookie = cookies?.find((cookie) =>
       cookie.includes('Authentication'),
     );
     const jwt = authCookie?.split('Authentication=')[1];
