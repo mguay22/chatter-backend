@@ -1,7 +1,4 @@
-import { Request } from 'express';
-
-export const getJwt = (request: Request) => {
-  const authorization = request.headers.authorization;
+export const getJwt = (authorization: string) => {
   if (authorization && authorization.startsWith('Bearer')) {
     return authorization.substring(7, authorization.length);
   }
