@@ -89,8 +89,6 @@ export class UsersService {
   }
 
   toEntity(userDocument: UserDocument): User {
-    console.log('toEnt');
-    console.log(userDocument);
     const user = {
       ...userDocument,
       imageUrl: this.s3Service.getObjectUrl(
