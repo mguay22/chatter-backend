@@ -37,7 +37,7 @@ export class MessagesResolver {
       const messageUserId =
         typeof message.user._id === 'string'
           ? message.user._id
-          : message.user._id.toHextString();
+          : message.user._id.toHexString();
       return (
         variables.chatIds.includes(message.chatId) && userId !== messageUserId
       );
