@@ -32,13 +32,14 @@ export class MessagesResolver {
 
   @Subscription(() => Message, {
     filter: (payload, variables: MessageCreatedArgs, context) => {
-      console.log('Filter');
-      console.log(payload);
       const userId = context.req.user._id;
-      const message: Message = payload.messageCreated;
+      const message = payload.messageCreated;
+      const messageUserId =
+        typeof message.user._id === 'string'
+          ? message.user._id
+          : message.user._id.toHextString();
       return (
-        variables.chatIds.includes(message.chatId) &&
-        userId !== message.user._id.toHexString()
+        variables.chatIds.includes(message.chatId) && userId !== messageUserId
       );
     },
   })
