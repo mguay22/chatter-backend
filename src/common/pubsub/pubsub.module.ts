@@ -20,10 +20,10 @@ import { serialize, deserialize } from 'bson';
           return new RedisPubSub({
             publisher: new Redis(options),
             subscriber: new Redis(options),
-            serializer: (source) => serialize(source).toString(),
+            serializer: (source) => JSON.stringify(serialize(source)),
             deserializer: (source) => {
               if (typeof source === 'string') {
-                return JSON.parse(source);
+                return deserialize(JSON.parse(source));
               }
               return deserialize(source);
             },
