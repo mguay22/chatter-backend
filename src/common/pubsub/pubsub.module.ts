@@ -20,6 +20,7 @@ import { ConfigService } from '@nestjs/config';
         }
         return new PubSub();
       },
+      inject: [ConfigService],
     },
   ],
   exports: [PUB_SUB],
