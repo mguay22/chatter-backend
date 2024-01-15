@@ -19,9 +19,6 @@ import Redis from 'ioredis';
           return new RedisPubSub({
             publisher: new Redis(options),
             subscriber: new Redis(options),
-            reviver: (key, value) => {
-              console.log(key, value);
-            },
           });
         }
         return new PubSub();
