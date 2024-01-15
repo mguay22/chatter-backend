@@ -32,6 +32,8 @@ export class MessagesResolver {
 
   @Subscription(() => Message, {
     filter: (payload, variables: MessageCreatedArgs, context) => {
+      console.log('Filter');
+      console.log(payload);
       const userId = context.req.user._id;
       const message: Message = payload.messageCreated;
       return (
