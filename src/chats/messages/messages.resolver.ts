@@ -38,9 +38,10 @@ export class MessagesResolver {
         typeof message.user._id === 'string'
           ? message.user._id
           : message.user._id.toHexString();
-      return (
-        variables.chatIds.includes(message.chatId) && userId !== messageUserId
-      );
+      return true;
+      // return (
+      //   variables.chatIds.includes(message.chatId) && userId !== messageUserId
+      // );
     },
   })
   messageCreated(@Args() _messageCreatedArgs: MessageCreatedArgs) {
