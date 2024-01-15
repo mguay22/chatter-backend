@@ -3,6 +3,7 @@ import { PUB_SUB } from '../constants/injection-tokens';
 import { PubSub } from 'graphql-subscriptions';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { ConfigService } from '@nestjs/config';
+import Redis from 'ioredis';
 
 @Global()
 @Module({
@@ -11,11 +12,13 @@ import { ConfigService } from '@nestjs/config';
       provide: PUB_SUB,
       useFactory: (configService: ConfigService) => {
         if (configService.get('NODE_ENV') === 'production') {
+          const options = {
+            host: 'chatter-redis.ghk4hw.ng.0001.use1.cache.amazonaws.com',
+            port: 6379,
+          };
           return new RedisPubSub({
-            connection: {
-              host: 'chatter-redis.ghk4hw.ng.0001.use1.cache.amazonaws.com',
-              port: 6379,
-            },
+            publisher: new Redis(options),
+            subscriber: new Redis(options),
           });
         }
         return new PubSub();
