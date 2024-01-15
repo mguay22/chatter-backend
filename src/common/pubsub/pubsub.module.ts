@@ -4,6 +4,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
+import { serialize, deserialize } from 'bson';
 
 @Global()
 @Module({
@@ -19,6 +20,13 @@ import Redis from 'ioredis';
           return new RedisPubSub({
             publisher: new Redis(options),
             subscriber: new Redis(options),
+            serializer: (source) => serialize(source).toString(),
+            deserializer: (source) => {
+              if (typeof source === 'string') {
+                return JSON.parse(source);
+              }
+              return deserialize(source);
+            },
           });
         }
         return new PubSub();

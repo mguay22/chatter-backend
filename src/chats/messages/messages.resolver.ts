@@ -33,15 +33,11 @@ export class MessagesResolver {
   @Subscription(() => Message, {
     filter: (payload, variables: MessageCreatedArgs, context) => {
       const userId = context.req.user._id;
-      const message = payload.messageCreated;
-      const messageUserId =
-        typeof message.user._id === 'string'
-          ? message.user._id
-          : message.user._id.toHexString();
-      return true;
-      // return (
-      //   variables.chatIds.includes(message.chatId) && userId !== messageUserId
-      // );
+      const message: Message = payload.messageCreated;
+      return (
+        variables.chatIds.includes(message.chatId) &&
+        userId !== message.user._id.toHexString()
+      );
     },
   })
   messageCreated(@Args() _messageCreatedArgs: MessageCreatedArgs) {

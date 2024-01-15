@@ -41,10 +41,7 @@ export class MessagesService {
       user: await this.usersService.findOne(userId),
     };
     await this.pubSub.publish(MESSAGE_CREATED, {
-      messageCreated: {
-        ...message,
-        createdAt: message.createdAt.toDateString(),
-      },
+      messageCreated: message,
     });
     return message;
   }
