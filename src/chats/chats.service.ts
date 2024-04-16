@@ -68,7 +68,7 @@ export class ChatsService {
   }
 
   async countChats() {
-    return this.chatsRepository.model.count({});
+    return this.chatsRepository.model.countDocuments({});
   }
 
   async findOne(_id: string) {
