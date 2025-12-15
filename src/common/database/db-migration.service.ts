@@ -17,8 +17,11 @@ export class DbMigrationService implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {}
 
   async onModuleInit() {
-    config.set(this.dbMigrationConfig);
-    const { db, client } = await database.connect();
-    await up(db, client);
+    const resolvedConfig = await config;
+    const resolvedDatabase = await database;
+    const resolvedUp = await up;
+    resolvedConfig.set(this.dbMigrationConfig);
+    const { db, client } = await resolvedDatabase.connect();
+    await resolvedUp(db, client);
   }
 }

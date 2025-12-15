@@ -5,7 +5,7 @@ import { Message } from './entities/message.entity';
 import { Types } from 'mongoose';
 import { GetMessagesArgs } from './dto/get-messages.args';
 import { PUB_SUB } from '../../common/constants/injection-tokens';
-import { PubSub } from 'graphql-subscriptions';
+import { PubSubEngine } from 'graphql-subscriptions';
 import { MESSAGE_CREATED } from './constants/pubsub-triggers';
 import { MessageDocument } from './entities/message.document';
 import { UsersService } from '../../users/users.service';
@@ -15,7 +15,7 @@ export class MessagesService {
   constructor(
     private readonly chatsRepository: ChatsRepository,
     private readonly usersService: UsersService,
-    @Inject(PUB_SUB) private readonly pubSub: PubSub,
+    @Inject(PUB_SUB) private readonly pubSub: PubSubEngine,
   ) {}
 
   async createMessage({ content, chatId }: CreateMessageInput, userId: string) {
@@ -27,7 +27,7 @@ export class MessagesService {
     };
     await this.chatsRepository.findOneAndUpdate(
       {
-        _id: chatId,
+        _id: new Types.ObjectId(chatId),
       },
       {
         $push: {
@@ -83,6 +83,6 @@ export class MessagesService {
   }
 
   async messageCreated() {
-    return this.pubSub.asyncIterator(MESSAGE_CREATED);
+    return this.pubSub.asyncIterableIterator(MESSAGE_CREATED);
   }
 }

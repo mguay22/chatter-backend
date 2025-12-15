@@ -1,6 +1,7 @@
 import { Logger, NotFoundException } from '@nestjs/common';
 import { AbstractEntity } from './abstract.entity';
-import { FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
+import { Model, Types } from 'mongoose';
+import type { Filter, UpdateFilter } from 'mongodb';
 
 export abstract class AbstractRepository<T extends AbstractEntity> {
   protected abstract readonly logger: Logger;
@@ -15,7 +16,7 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return (await createdDocument.save()).toJSON() as unknown as T;
   }
 
-  async findOne(filterQuery: FilterQuery<T>): Promise<T> {
+  async findOne(filterQuery: Filter<T>): Promise<T> {
     const document = await this.model.findOne(filterQuery, {}).lean<T>();
 
     if (!document) {
@@ -27,8 +28,8 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
   }
 
   async findOneAndUpdate(
-    filterQuery: FilterQuery<T>,
-    update: UpdateQuery<T>,
+    filterQuery: Filter<T>,
+    update: UpdateFilter<T>,
   ): Promise<T> {
     const document = await this.model
       .findOneAndUpdate(filterQuery, update, {
@@ -44,11 +45,11 @@ export abstract class AbstractRepository<T extends AbstractEntity> {
     return document;
   }
 
-  async find(filterQuery: FilterQuery<T>): Promise<T[]> {
+  async find(filterQuery: Filter<T>): Promise<T[]> {
     return this.model.find(filterQuery).lean<T[]>();
   }
 
-  async findOneAndDelete(filterQuery: FilterQuery<T>): Promise<T> {
+  async findOneAndDelete(filterQuery: Filter<T>): Promise<T> {
     return this.model.findOneAndDelete(filterQuery).lean<T>();
   }
 }

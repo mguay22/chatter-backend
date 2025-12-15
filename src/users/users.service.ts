@@ -11,6 +11,7 @@ import { S3Service } from '../common/s3/s3.service';
 import { USERS_BUCKET, USERS_IMAGE_FILE_EXTENSION } from './users.constants';
 import { UserDocument } from './entities/user.document';
 import { User } from './entities/user.entity';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class UsersService {
@@ -54,7 +55,7 @@ export class UsersService {
   }
 
   async findOne(_id: string) {
-    return this.toEntity(await this.usersRepository.findOne({ _id }));
+    return this.toEntity(await this.usersRepository.findOne({ _id: new Types.ObjectId(_id) }));
   }
 
   async update(_id: string, updateUserInput: UpdateUserInput) {
@@ -65,7 +66,7 @@ export class UsersService {
     }
     return this.toEntity(
       await this.usersRepository.findOneAndUpdate(
-        { _id },
+        { _id: new Types.ObjectId(_id) },
         {
           $set: {
             ...updateUserInput,
@@ -76,7 +77,7 @@ export class UsersService {
   }
 
   async remove(_id: string) {
-    return this.toEntity(await this.usersRepository.findOneAndDelete({ _id }));
+    return this.toEntity(await this.usersRepository.findOneAndDelete({ _id: new Types.ObjectId(_id) }));
   }
 
   async verifyUser(email: string, password: string) {
